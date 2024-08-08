@@ -18,11 +18,6 @@ code {
 }
 
 @font-face {
-  font-family: "LobsterTwo-Regular";
-  src: url("./fonts/LobsterTwo-Regular.ttf") format("truetype");
-}
-
-@font-face {
   font-family: "RobotoSlab-Bold";
   src: url("./fonts/RobotoSlab-Bold.ttf") format("truetype");
 }
