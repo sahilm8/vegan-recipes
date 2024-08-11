@@ -22,6 +22,9 @@ export const getRecipesResults = (
       return response.data
     })
     .catch((error) => {
-      throw new Error("Failed to fetch recipes")
+      if (error instanceof Error) {
+        return { error: error.message }
+      }
+      return { error: "An unknown error occurred" }
     })
 }
