@@ -1,8 +1,20 @@
 import React, { useState } from "react"
+import { getRecipesResults } from "../../utils/api"
 import "./home.css"
 
 const Home: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("")
+
+  const handleSearch = () => {
+    console.log("Searching for:", searchQuery)
+    getRecipesResults(searchQuery, 0, 10)
+  }
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      handleSearch()
+    }
+  }
 
   return (
     <div className="home-root">
@@ -17,8 +29,11 @@ const Home: React.FC = () => {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="search-bar"
+          onKeyDown={handleKeyDown}
         />
-        <button className="search-button">Search</button>
+        <button className="search-button" onClick={handleSearch}>
+          Search
+        </button>
       </div>
       <div className="footer">
         <p className="footer-text">Powered by XYZ</p>
