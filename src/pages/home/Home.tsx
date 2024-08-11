@@ -6,7 +6,6 @@ const Home: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("")
 
   const handleSearch = () => {
-    console.log("Searching for:", searchQuery)
     getRecipesResults(searchQuery, 0, 10)
   }
 

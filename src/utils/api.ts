@@ -22,7 +22,6 @@ export const getRecipesResults = (
       return response.data
     })
     .catch((error) => {
-      console.error("Error fetching recipes:", error)
       throw new Error("Failed to fetch recipes")
     })
 }
