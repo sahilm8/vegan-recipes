@@ -4,7 +4,7 @@
   align-items: center;
   background-color: rgb(255, 249, 230);
   height: 100vh;
-  width: 100%;
+  width: 100vw;
 }
 
 .header {
@@ -15,14 +15,14 @@
 }
 
 .heading {
-  font-size: 3rem;
+  font-size: 5rem;
   font-family: "LobsterTwo-Bold";
   color: rgb(233, 71, 71);
   margin: 2rem 0 0 0;
 }
 
 .sub-heading {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-family: "RobotoSlab-Bold";
   color: rgb(53, 33, 33);
   margin: 2rem 0 0 0;
@@ -41,7 +41,7 @@
   flex-direction: column;
   align-items: center;
   height: 1.5rem;
-  width: 30rem;
+  width: 35rem;
   border-radius: 2rem;
   border-width: 0;
   background-color: rgb(255, 253, 245);
@@ -91,4 +91,34 @@
   font-size: 1rem;
   color: rgb(53, 33, 33);
   margin: 1rem 0 0 0;
+}
+
+/* Tablet styles */
+@media screen and (max-width: 1024px) {
+  .heading {
+    font-size: 4rem;
+  }
+
+  .sub-heading {
+    font-size: 1.5rem;
+  }
+
+  .search-bar {
+    width: 30rem;
+  }
+}
+
+/* Mobile styles */
+@media screen and (max-width: 768px) {
+  .heading {
+    font-size: 3rem;
+  }
+
+  .sub-heading {
+    font-size: 1.5rem;
+  }
+
+  .search-bar {
+    width: 20rem;
+  }
 }
