@@ -1,6 +1,6 @@
 import axios from "axios"
 
-export const getRecipesResults = (
+export const getRecipes = async (
   query: string,
   from: number,
   to: number,
@@ -15,16 +15,15 @@ export const getRecipesResults = (
     to: to,
   }
 
-  return axios
-    .get(url, { params })
-    .then((response) => {
-      console.log(response.data)
-      return response.data
-    })
-    .catch((error) => {
-      if (error instanceof Error) {
-        return { error: error.message }
-      }
-      return { error: "An unknown error occurred" }
-    })
+  try {
+    const response = await axios.get(url, { params })
+    console.log(response.data)
+
+    return response.data
+  } catch (error) {
+    if (error instanceof Error) {
+      return { error: error.message }
+    }
+    return { error: "An unknown error occurred" }
+  }
 }
