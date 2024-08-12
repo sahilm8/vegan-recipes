@@ -27,5 +27,5 @@ export const getRecipes = async (
 }
 
 export const getRecipeData = async (id: string): Promise<any> => {
-  const url = `${process.env.REACT_APP_EDAMAM_BASE_URL}/api/recipes/v2/{id}`
+  const url = `${process.env.REACT_APP_EDAMAM_BASE_URL}/api/recipes/v2/${id}`
 }
