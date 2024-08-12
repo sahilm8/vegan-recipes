@@ -1,18 +1,33 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import "./results.css"
 import { getRecipes } from "../../utils/api"
+import "./results.css"
 
 const Results: React.FC = () => {
   const navigate = useNavigate()
   const { query } = useParams<{ query: string }>()
-  const [results, setResults] = React.useState<any[]>([])
+  const [searchQuery, setSearchQuery] = useState<string>("")
+  const [results, setResults] = React.useState<any>({})
 
   useEffect(() => {
-    getRecipes(query!, 0, 50).then((data) => {
-      setResults(data)
-    })
+    if (query) {
+      handleSearch(query)
+    }
   }, [query])
+
+  const handleSearch = (searchQuery: string) => {
+    getRecipes(searchQuery, 0, 50)
+      .then((data) => {
+        setResults(data.hits)
+      })
+      .catch((error) => alert(error))
+  }
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (searchQuery && event.key === "Enter") {
+      handleSearch(searchQuery)
+    }
+  }
 
   return (
     <div className="results-root">
@@ -23,27 +38,37 @@ const Results: React.FC = () => {
         <input
           type="text"
           placeholder="Search for recipes"
-          value={""}
-          onChange={(e) => {}}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
           className="results-search-bar"
-          onKeyDown={() => {}}
+          onKeyDown={handleKeyDown}
         />
-        <button className="results-search-button" onClick={() => {}}>
+        <button
+          className="results-search-button"
+          onClick={() => handleSearch(searchQuery)}
+        >
           Search
         </button>
       </div>
-      <div className="results-list">
-        {Array.isArray(results) && results.length !== 0 ? (
-          results.map((result) => (
-            <div className="results-row">
-              <p className="results-recipe-title">{result.title}</p>
-            </div>
-          ))
-        ) : (
-          <p className="results-no-results">
-            No recipes found, please try again later.
-          </p>
-        )}
+      {Array.isArray(results) && results.length !== 0 ? (
+        results.map((result) => (
+          <div className="results-row" key={result.recipe.url}>
+            <img
+              className="results-image"
+              src={result.recipe.image}
+              alt={result.recipe.label}
+            />
+            <p className="results-recipe-title">{result.recipe.label}</p>
+          </div>
+        ))
+      ) : (
+        <p className="results-no-results">
+          No recipes found, please try again later.
+        </p>
+      )}
+      <div className="results-footer">
+        <p className="results-footer-text">Powered by Edamam</p>
+        <p className="results-footer-text">Created by Sahil Memon</p>
       </div>
     </div>
   )

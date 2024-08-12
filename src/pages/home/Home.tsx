@@ -36,7 +36,7 @@ const Home: React.FC = () => {
         </button>
       </div>
       <div className="home-footer">
-        <p className="home-footer-text">Powered by XYZ</p>
+        <p className="results-footer-text">Powered by Edamam</p>
         <p className="home-footer-text">Created by Sahil Memon</p>
       </div>
     </div>
