@@ -1,28 +1,70 @@
 .recipe-root {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh;
-    width: 100vw;
-  }
-  
-  .recipe-header {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .recipe-heading {
-    font-size: 5rem;
-    font-family: "LobsterTwo-Bold";
-    color: rgb(233, 71, 71);
-    margin: 2rem 0 0 0;
-  }
-  
-  .recipe-sub-heading {
-    font-size: 2rem;
-    font-family: "RobotoSlab-Bold";
-    color: rgb(53, 33, 33);
-    margin: 2rem 0 0 0;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.recipe-header {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+}
+
+.recipe-heading {
+  font-size: 3rem;
+  font-family: "LobsterTwo-Bold";
+  color: rgb(233, 71, 71);
+  cursor: pointer;
+  margin: 2rem 0 0 0;
+}
+
+.recipe-heading:hover {
+  color: rgb(213, 51, 51);
+}
+
+.recipe-sub-heading {
+  font-size: 2rem;
+  font-family: "RobotoSlab-Bold";
+  color: rgb(53, 33, 33);
+  margin: 2rem 0 0 0;
+}
+
+.recipe-image {
+  width: 18rem;
+  height: 18rem;
+  object-fit: cover;
+  border-radius: 2rem;
+  margin: 2rem 0 0 0;
+}
+
+.recipe-section-heading {
+  font-size: 1.75rem;
+  font-family: "RobotoSlab-Bold";
+  color: rgb(53, 33, 33);
+  margin: 2rem 0 0 0;
+}
+
+.recipe-ingredient-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0 0 2rem 0;
+}
+
+.recipe-ingredient-image {
+  width: 12rem;
+  height: 12rem;
+  object-fit: cover;
+  border-radius: 2rem;
+  margin: 2rem 0 0 0;
+}
+
+.recipe-ingredient {
+  font-size: 1.25rem;
+  font-family: "RobotoSlab-Regular";
+  color: rgb(53, 33, 33);
+  margin: 2rem 0 0 0;
+}
