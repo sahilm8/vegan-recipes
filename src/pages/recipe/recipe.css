@@ -1,0 +1,28 @@
+.recipe-root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+  }
+  
+  .recipe-header {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .recipe-heading {
+    font-size: 5rem;
+    font-family: "LobsterTwo-Bold";
+    color: rgb(233, 71, 71);
+    margin: 2rem 0 0 0;
+  }
+  
+  .recipe-sub-heading {
+    font-size: 2rem;
+    font-family: "RobotoSlab-Bold";
+    color: rgb(53, 33, 33);
+    margin: 2rem 0 0 0;
+  }

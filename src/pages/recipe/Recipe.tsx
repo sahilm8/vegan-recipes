@@ -1,23 +1,26 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
-//import { getRecipeData } from "../../utils/api"
+import { getRecipeData } from "../../utils/api"
 import "./recipe.css"
 
 const Recipe: React.FC = () => {
-  const { id } = useParams<{ id: string }>()
-  const [recipe, setRecipe] = useState<any>({})
+  const { uri } = useParams<{ uri: string }>()
+  const [recipe, setRecipe] = useState<any>({
+    label: "123",
+    image: "123",
+    cuisineType: "123",
+    dishType: "123",
+    mealType: "123",
+  })
 
-  /*
+
   useEffect(() => {
-    if (id) {
-      getRecipeData(id)
+      getRecipeData(uri!)
         .then((data) => {
           setRecipe(data.recipe)
         })
         .catch((error) => alert(error))
-    }
-  }, [id])
-    */
+  }, [uri])
 
   return (
     <div className="recipe-root">
@@ -27,7 +30,6 @@ const Recipe: React.FC = () => {
         <p className="recipe-sub-heading">{recipe.cuisineType}</p>
         <p className="recipe-sub-heading">{recipe.dishType}</p>
         <p className="recipe-sub-heading">{recipe.mealType}</p>
-        <p className="recipe-sub-heading">{recipe.dishType}</p>
       </div>
     </div>
   )
