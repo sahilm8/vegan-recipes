@@ -24,6 +24,7 @@ const Recipe: React.FC = () => {
         </p>
         <p className="recipe-sub-heading">{recipe.label}</p>
         <div className="recipe-info-section">
+          <img src={recipe.image} alt={recipe.label} className="recipe-image" />
           <div>
             <p className="recipe-section-heading">Cuisine</p>
             <p className="recipe-info">{recipe.cuisineType[0]}</p>
@@ -45,10 +46,9 @@ const Recipe: React.FC = () => {
               </div>
             ))}
           </div>
-          <img src={recipe.image} alt={recipe.label} className="recipe-image" />
         </div>
-        <p className="recipe-section-heading">Source</p>
-        <a href={recipe.url} className="recipe-info">
+        <p className="recipe-link-heading">Source</p>
+        <a href={recipe.url} className="recipe-link">
           {recipe.url}
         </a>
       </div>

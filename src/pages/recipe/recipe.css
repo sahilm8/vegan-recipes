@@ -29,13 +29,12 @@
   font-size: 2rem;
   font-family: "RobotoSlab-Bold";
   color: rgb(53, 33, 33);
-  margin: 2rem 0 2rem 0;
-  align-self: flex-start;
+  margin: 2rem;
 }
 
 .recipe-info-section {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: flex-start;
 }
 
@@ -44,7 +43,8 @@
   height: 16rem;
   object-fit: cover;
   border-radius: 2rem;
-  margin: 2rem 0 0 0;
+  margin: 0 0 2rem 0;
+  align-self: center;
 }
 
 .recipe-section-heading {
@@ -58,7 +58,6 @@
 .recipe-ingredient-container {
   display: flex;
   flex-direction: row;
-  align-items: center;
   margin: 2rem 0 2rem 0;
   width: 40rem;
 }
@@ -79,4 +78,100 @@
   margin: 0 0 2rem 0;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.recipe-link-heading {
+  font-size: 1.75rem;
+  font-family: "RobotoSlab-Bold";
+  color: rgb(53, 33, 33);
+  margin: 0 2rem 2rem 2rem;
+}
+
+.recipe-link {
+  font-size: 1.25rem;
+  font-family: "RobotoSlab-Regular";
+  color: rgb(53, 33, 33);
+  margin: 0 2rem 2rem 2rem;
+}
+
+/* Tablet styles */
+@media screen and (max-width: 1024px) {
+  .recipe-heading {
+    font-size: 2rem;
+  }
+
+  .recipe-sub-heading {
+    font-size: 1.75rem;
+  }
+
+  .recipe-section-heading {
+    font-size: 1.5rem;
+  }
+
+  .recipe-link-heading {
+    font-size: 1.5rem;
+  }
+
+  .recipe-ingredient-container {
+    width: 30rem;
+  }
+
+  .recipe-info {
+    font-size: 1.25rem;
+  }
+
+  .recipe-link {
+    font-size: 1.15rem;
+  }
+
+  .recipe-image {
+    width: 12rem;
+    height: 12rem;
+  }
+
+  .recipe-ingredient-image {
+    width: 3.25rem;
+    height: 3.25rem;
+  }
+}
+
+/* Mobile styles */
+@media screen and (max-width: 768px) {
+  .recipe-heading {
+    font-size: 2rem;
+  }
+
+  .recipe-sub-heading {
+    font-size: 1.5rem;
+  }
+
+  .recipe-section-heading {
+    font-size: 1.25rem;
+  }
+
+  .recipe-link-heading {
+    font-size: 1.25rem;
+  }
+
+  .recipe-ingredient-container {
+    width: 20rem;
+  }
+
+  .recipe-info {
+    font-size: 1.15rem;
+  }
+
+  .recipe-link {
+    font-size: 1.15rem;
+  }
+
+  .recipe-image {
+    width: 10rem;
+    height: 10rem;
+  }
+
+  .recipe-ingredient-image {
+    width: 3rem;
+    height: 3rem;
+  }
 }

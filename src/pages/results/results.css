@@ -54,7 +54,6 @@
   transition:
     transform 0.1s,
     box-shadow 0.1s;
-  ;
 }
 
 .results-search-button:hover {
@@ -162,7 +161,7 @@
   }
 
   .results-heading {
-    font-size: 3rem;
+    font-size: 2rem;
   }
 
   .results-search-bar {
