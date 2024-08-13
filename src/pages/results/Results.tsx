@@ -7,7 +7,7 @@ const Results: React.FC = () => {
   const navigate = useNavigate()
   const { query } = useParams<{ query: string }>()
   const [searchQuery, setSearchQuery] = useState<string>("")
-  const [results, setResults] = React.useState<any>({})
+  const [results, setResults] = React.useState<any>(null)
 
   useEffect(() => {
     if (query) {
@@ -52,7 +52,13 @@ const Results: React.FC = () => {
       </div>
       {Array.isArray(results) && results.length !== 0 ? (
         results.map((result) => (
-          <div className="results-row" key={result.recipe.url} onClick={() => navigate(`/recipe/${result.recipe.uri.split("_")[1]}`)}>
+          <div
+            className="results-row"
+            key={result.recipe.url}
+            onClick={() =>
+              navigate(`/recipe/${result.recipe.uri.split("_")[1]}`)
+            }
+          >
             <img
               className="results-image"
               src={result.recipe.image}

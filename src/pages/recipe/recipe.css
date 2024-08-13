@@ -29,12 +29,19 @@
   font-size: 2rem;
   font-family: "RobotoSlab-Bold";
   color: rgb(53, 33, 33);
-  margin: 2rem 0 0 0;
+  margin: 2rem 0 2rem 0;
+  align-self: flex-start;
+}
+
+.recipe-info-section {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
 }
 
 .recipe-image {
-  width: 18rem;
-  height: 18rem;
+  width: 16rem;
+  height: 16rem;
   object-fit: cover;
   border-radius: 2rem;
   margin: 2rem 0 0 0;
@@ -44,27 +51,32 @@
   font-size: 1.75rem;
   font-family: "RobotoSlab-Bold";
   color: rgb(53, 33, 33);
-  margin: 2rem 0 0 0;
+  margin: 0 0 2rem 0;
+  align-self: flex-start;
 }
 
 .recipe-ingredient-container {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 0 0 2rem 0;
+  margin: 2rem 0 2rem 0;
+  width: 40rem;
 }
 
 .recipe-ingredient-image {
-  width: 12rem;
-  height: 12rem;
+  width: 4rem;
+  height: 4rem;
   object-fit: cover;
   border-radius: 2rem;
-  margin: 2rem 0 0 0;
+  margin: 0 2rem 0 0;
 }
 
-.recipe-ingredient {
+.recipe-info {
   font-size: 1.25rem;
   font-family: "RobotoSlab-Regular";
   color: rgb(53, 33, 33);
-  margin: 2rem 0 0 0;
+  align-self: flex-start;
+  margin: 0 0 2rem 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
