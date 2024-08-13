@@ -52,7 +52,7 @@ const Results: React.FC = () => {
       </div>
       {Array.isArray(results) && results.length !== 0 ? (
         results.map((result) => (
-          <div className="results-row" key={result.recipe.url}>
+          <div className="results-row" key={result.recipe.url} onClick={() => navigate(`/recipe/${result.recipe.uri.split("_")[1]}`)}>
             <img
               className="results-image"
               src={result.recipe.image}

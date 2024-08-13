@@ -37,12 +37,12 @@
   font-family: "RobotoSlab-Regular";
   font-size: 1rem;
   color: rgb(53, 33, 33);
-  margin: 0 4rem 0 8rem;
+  margin: 0 4rem 0 4rem;
 }
 
 .results-search-button {
   height: 2.5rem;
-  width: 8rem;
+  min-width: 8rem;
   border-radius: 2rem;
   border-width: 0;
   font-family: "RobotoSlab-Bold";
@@ -54,6 +54,7 @@
   transition:
     transform 0.1s,
     box-shadow 0.1s;
+  ;
 }
 
 .results-search-button:hover {
@@ -73,6 +74,18 @@
   margin: 3rem 2rem 0 2rem;
   background-color: rgb(255, 255, 255);
   border-radius: 2rem;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
+  transition:
+    transform 0.1s,
+    box-shadow 0.1s;
+}
+
+.results-row:hover {
+  background-color: rgb(238, 238, 238);
+}
+
+.results-row:active {
+  transform: translateY(0.1rem);
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
 }
 
