@@ -1,15 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-export interface searchState {
-  query: string
-  results: Object
-}
-
 export const searchSlice = createSlice({
   name: "search",
   initialState: {
     query: "",
     results: {},
+    urls: [],
   },
   reducers: {
     setQuery: (state, action) => {
@@ -18,8 +14,11 @@ export const searchSlice = createSlice({
     setResults: (state, action) => {
       state.results = action.payload
     },
+    setUrls: (state, action) => {
+      state.urls = action.payload
+    },
   },
 })
 
-export const { setQuery, setResults } = searchSlice.actions
+export const { setQuery, setResults, setUrls } = searchSlice.actions
 export default searchSlice.reducer

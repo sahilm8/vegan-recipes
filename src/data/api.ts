@@ -23,7 +23,7 @@ export const getRecipes = async (query: string): Promise<any> => {
   }
 }
 
-export const getNextPage = async (url: string): Promise<any> => {
+export const getPage = async (url: string): Promise<any> => {
   try {
     const response = await axios.get(url)
     return response.data
