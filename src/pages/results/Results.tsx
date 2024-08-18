@@ -16,7 +16,6 @@ const Results: React.FC = () => {
   const handleSearch = useCallback(
     async (searchQuery: string) => {
       navigate(`/results/${searchQuery}`)
-
       dispatch(setQuery(searchQuery))
       await getRecipes(searchQuery)
         .then((data) => {
