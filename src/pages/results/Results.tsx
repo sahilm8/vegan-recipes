@@ -2,14 +2,12 @@ import React, { useCallback, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { setQuery, setResults } from "../../state/searchSlice"
-import { useSaveReqUrl } from "../../hooks/useSaveReqUrl"
 import { useFetchData } from "../../hooks/useFetchData"
 import "./results.css"
 
 const Results: React.FC = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const [saveUrl] = useSaveReqUrl()
   const [handleGetReipes, handleGetPage] = useFetchData()
   const { query } = useSelector((state: any) => state.search)
   const { urls } = useSelector((state: any) => state.search)
@@ -34,7 +32,6 @@ const Results: React.FC = () => {
 
   const handlePagination = useCallback(
     (url: string) => {
-      saveUrl(url)
       handleGetPage(url)
         .then((data) => {
           setData(data)
@@ -42,7 +39,7 @@ const Results: React.FC = () => {
         })
         .catch((error) => alert(error))
     },
-    [dispatch, saveUrl],
+    [dispatch],
   )
 
   const handleKeyDown = useCallback(
