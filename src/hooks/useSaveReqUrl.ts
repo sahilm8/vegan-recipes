@@ -8,8 +8,6 @@ export const useSaveReqUrl = () => {
   const saveUrl = (url: string) => {
     if (!urls.includes(url)) {
       dispatch(setUrls([...urls, url]))
-    } else {
-      dispatch(setUrls(urls.filter((u: string) => u !== url)))
     }
   }
 

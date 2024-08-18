@@ -1,19 +1,21 @@
 import React, { useCallback, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { getNextPage, getRecipes } from "../../data/api"
+import { getPage, getRecipes } from "../../data/api"
 import { useDispatch, useSelector } from "react-redux"
 import { setQuery, setResults } from "../../state/searchSlice"
 import "./results.css"
+import { useSaveReqUrl } from "../../hooks/useSaveReqUrl"
 
 const Results: React.FC = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const [saveUrl] = useSaveReqUrl()
   const { query } = useSelector((state: any) => state.search)
-  const { results } = useSelector((state: any) => state.search)
+  const { urls } = useSelector((state: any) => state.search)
   const [searchQuery, setSearchQuery] = useState<string>("")
   const [data, setData] = React.useState<any>(null)
 
-  console.log("results", results)
+  console.log("urls", urls)
 
   const handleSearch = useCallback(
     (searchQuery: string) => {
@@ -29,14 +31,18 @@ const Results: React.FC = () => {
     [navigate, dispatch],
   )
 
-  const handlePagination = useCallback((url: string) => {
-    getNextPage(url)
-      .then((data) => {
-        setData(data)
-        dispatch(setResults(data))
-      })
-      .catch((error) => alert(error))
-  }, [])
+  const handlePagination = useCallback(
+    (url: string) => {
+      saveUrl(url)
+      getPage(url)
+        .then((data) => {
+          setData(data)
+          dispatch(setResults(data))
+        })
+        .catch((error) => alert(error))
+    },
+    [dispatch, saveUrl],
+  )
 
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -98,10 +104,21 @@ const Results: React.FC = () => {
         </p>
       )}
       <div className="results-pagination">
-        <button className="results-pagination-button" onClick={() => {}}>
-          Previous
-        </button>
-        {data && data._links.next ? (
+        {urls.length !== 0 && (
+          <button
+            className="results-pagination-button"
+            onClick={() => {
+              handlePagination(urls[urls.length - 1])
+              window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+              })
+            }}
+          >
+            Previous
+          </button>
+        )}
+        {data && data._links.next && (
           <button
             className="results-pagination-button"
             id="results-pagination-button-next"
@@ -115,7 +132,7 @@ const Results: React.FC = () => {
           >
             Next
           </button>
-        ) : null}
+        )}
       </div>
       <div className="results-footer">
         <p className="results-footer-text">Powered by Edamam</p>
