@@ -27,6 +27,18 @@ export const getRecipes = async (
   }
 }
 
+export const getNextPage = async (url: string): Promise<any> => {
+  try {
+    const response = await axios.get(url)
+    return response.data
+  } catch (error) {
+    if (error instanceof Error) {
+      return { error: error.message }
+    }
+    return { error: "An unknown error occurred" }
+  }
+}
+
 export const getRecipeData = async (uri: string): Promise<any> => {
   const url = `${process.env.REACT_APP_EDAMAM_BASE_URL}/api/recipes/v2/${uri}`
   const params = {

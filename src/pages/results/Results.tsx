@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { getRecipes } from "../../utils/api"
+import { getNextPage, getRecipes } from "../../utils/api"
 import "./results.css"
 
 const Results: React.FC = () => {
@@ -17,6 +17,14 @@ const Results: React.FC = () => {
 
   const handleSearch = (searchQuery: string) => {
     getRecipes(searchQuery, 0, 50)
+      .then((data) => {
+        setResults(data)
+      })
+      .catch((error) => alert(error))
+  }
+
+  const handlePagination = (url: string) => {
+    getNextPage(url)
       .then((data) => {
         setResults(data)
       })
@@ -76,9 +84,22 @@ const Results: React.FC = () => {
         <button className="results-pagination-button" onClick={() => {}}>
           Previous
         </button>
-        <button className="results-pagination-button" onClick={() => {}}>
-          Next
-        </button>
+        {results && results._links.next.href ? (
+          <button
+            className="results-pagination-button"
+            onClick={() =>
+              results._links.next.href
+                ? (handlePagination(results._links.next.href),
+                  window.scrollTo({
+                    top: 0,
+                    behavior: "smooth",
+                  }))
+                : null
+            }
+          >
+            Next
+          </button>
+        ) : null}
       </div>
       <div className="results-footer">
         <p className="results-footer-text">Powered by Edamam</p>
