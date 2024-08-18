@@ -1,15 +1,16 @@
 import React, { useCallback, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { getPage, getRecipes } from "../../data/api"
 import { useDispatch, useSelector } from "react-redux"
 import { setQuery, setResults } from "../../state/searchSlice"
-import "./results.css"
 import { useSaveReqUrl } from "../../hooks/useSaveReqUrl"
+import { useFetchData } from "../../hooks/useFetchData"
+import "./results.css"
 
 const Results: React.FC = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [saveUrl] = useSaveReqUrl()
+  const [handleGetReipes, handleGetPage] = useFetchData()
   const { query } = useSelector((state: any) => state.search)
   const { urls } = useSelector((state: any) => state.search)
   const [searchQuery, setSearchQuery] = useState<string>("")
@@ -21,7 +22,7 @@ const Results: React.FC = () => {
     (searchQuery: string) => {
       dispatch(setQuery(searchQuery))
       navigate(`/results/${searchQuery}`)
-      getRecipes(searchQuery)
+      handleGetReipes(searchQuery)
         .then((data) => {
           setData(data)
           dispatch(setResults(data))
@@ -34,7 +35,7 @@ const Results: React.FC = () => {
   const handlePagination = useCallback(
     (url: string) => {
       saveUrl(url)
-      getPage(url)
+      handleGetPage(url)
         .then((data) => {
           setData(data)
           dispatch(setResults(data))
