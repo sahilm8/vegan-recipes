@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { getNextPage, getRecipes } from "../../utils/api"
+import { getNextPage, getRecipes } from "../../data/api"
 import "./results.css"
 
 const Results: React.FC = () => {
@@ -9,34 +9,40 @@ const Results: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("")
   const [results, setResults] = React.useState<any>(null)
 
-  useEffect(() => {
-    if (query) {
-      handleSearch(query)
-    }
-  }, [query])
+  const handleSearch = useCallback(
+    (searchQuery: string) => {
+      navigate(`/results/${searchQuery}`)
+      getRecipes(searchQuery, 0, 19)
+        .then((data) => {
+          setResults(data)
+        })
+        .catch((error) => alert(error))
+    },
+    [navigate],
+  )
 
-  const handleSearch = (searchQuery: string) => {
-    navigate(`/results/${searchQuery}`)
-    getRecipes(searchQuery, 0, 19)
-      .then((data) => {
-        setResults(data)
-      })
-      .catch((error) => alert(error))
-  }
-
-  const handlePagination = (url: string) => {
+  const handlePagination = useCallback((url: string) => {
     getNextPage(url)
       .then((data) => {
         setResults(data)
       })
       .catch((error) => alert(error))
-  }
+  }, [])
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (searchQuery && event.key === "Enter") {
-      handleSearch(searchQuery)
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (searchQuery && event.key === "Enter") {
+        handleSearch(searchQuery)
+      }
+    },
+    [handleSearch, searchQuery],
+  )
+
+  useEffect(() => {
+    if (query) {
+      handleSearch(query)
     }
-  }
+  }, [query, handleSearch])
 
   return (
     <div className="results-root">

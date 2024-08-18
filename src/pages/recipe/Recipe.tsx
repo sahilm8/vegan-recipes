@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { getRecipeData } from "../../utils/api"
+import { getRecipeData } from "../../data/api"
 import "./recipe.css"
 
 const Recipe: React.FC = () => {

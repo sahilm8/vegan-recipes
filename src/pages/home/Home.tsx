@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useCallback, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import "./home.css"
 
@@ -6,15 +6,18 @@ const Home: React.FC = () => {
   const navigate = useNavigate()
   const [searchQuery, setSearchQuery] = useState<string>("")
 
-  const handleSearch = () => {
+  const handleSearch = useCallback(() => {
     navigate(`/results/${searchQuery}`)
-  }
+  }, [navigate, searchQuery])
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      handleSearch()
-    }
-  }
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === "Enter") {
+        handleSearch()
+      }
+    },
+    [handleSearch],
+  )
 
   return (
     <div className="home-root">
