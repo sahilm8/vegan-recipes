@@ -1,10 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit"
 
+export interface searchState {
+  query: string
+  results: Object
+}
+
 export const searchSlice = createSlice({
   name: "search",
   initialState: {
     query: "",
-    results: [],
+    results: {},
   },
   reducers: {
     setQuery: (state, action) => {

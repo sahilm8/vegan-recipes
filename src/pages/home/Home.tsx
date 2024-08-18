@@ -13,6 +13,7 @@ const Home: React.FC = () => {
     dispatch(setQuery(searchQuery))
     navigate(`/results/${searchQuery}`)
   }, [navigate, searchQuery, dispatch])
+
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
       if (event.key === "Enter") {

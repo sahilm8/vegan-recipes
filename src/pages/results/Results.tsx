@@ -1,16 +1,19 @@
 import React, { useCallback, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { getNextPage, getRecipes } from "../../data/api"
-import { useSelector, useDispatch } from "react-redux"
-import { setQuery } from "../../state/searchSlice"
+import { useDispatch, useSelector } from "react-redux"
+import { setQuery, setResults } from "../../state/searchSlice"
 import "./results.css"
 
 const Results: React.FC = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const query = useSelector((state: any) => state.search.query)
+  const { query } = useSelector((state: any) => state.search)
+  const { results } = useSelector((state: any) => state.search)
   const [searchQuery, setSearchQuery] = useState<string>("")
-  const [results, setResults] = React.useState<any>(null)
+  const [data, setData] = React.useState<any>(null)
+
+  console.log("results", results)
 
   const handleSearch = useCallback(
     (searchQuery: string) => {
@@ -18,17 +21,19 @@ const Results: React.FC = () => {
       navigate(`/results/${searchQuery}`)
       getRecipes(searchQuery)
         .then((data) => {
-          setResults(data)
+          setData(data)
+          dispatch(setResults(data))
         })
         .catch((error) => alert(error))
     },
-    [navigate],
+    [navigate, dispatch],
   )
 
   const handlePagination = useCallback((url: string) => {
     getNextPage(url)
       .then((data) => {
-        setResults(data)
+        setData(data)
+        dispatch(setResults(data))
       })
       .catch((error) => alert(error))
   }, [])
@@ -70,8 +75,8 @@ const Results: React.FC = () => {
           Search
         </button>
       </div>
-      {results && Array.isArray(results.hits) && results.hits.length !== 0 ? (
-        results.hits.map((result: any) => (
+      {data && Array.isArray(data.hits) && data.hits.length !== 0 ? (
+        data.hits.map((result: any) => (
           <div
             className="results-row"
             key={result.recipe.url}
@@ -96,12 +101,12 @@ const Results: React.FC = () => {
         <button className="results-pagination-button" onClick={() => {}}>
           Previous
         </button>
-        {results && results._links.next ? (
+        {data && data._links.next ? (
           <button
             className="results-pagination-button"
             id="results-pagination-button-next"
             onClick={() => {
-              handlePagination(results._links.next.href)
+              handlePagination(data._links.next.href)
               window.scrollTo({
                 top: 0,
                 behavior: "smooth",
