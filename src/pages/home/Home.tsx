@@ -1,15 +1,18 @@
 import React, { useCallback, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { setQuery } from "../../state/searchSlice"
 import "./home.css"
 
 const Home: React.FC = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [searchQuery, setSearchQuery] = useState<string>("")
 
   const handleSearch = useCallback(() => {
+    dispatch(setQuery(searchQuery))
     navigate(`/results/${searchQuery}`)
-  }, [navigate, searchQuery])
-
+  }, [navigate, searchQuery, dispatch])
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
       if (event.key === "Enter") {
@@ -40,7 +43,6 @@ const Home: React.FC = () => {
       </div>
       <div className="home-footer">
         <p className="results-footer-text">Powered by Edamam</p>
-        <p className="home-footer-text">Created by Sahil Memon</p>
       </div>
     </div>
   )

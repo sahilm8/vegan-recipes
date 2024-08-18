@@ -1,16 +1,20 @@
 import React, { useCallback, useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { getNextPage, getRecipes } from "../../data/api"
+import { useSelector, useDispatch } from "react-redux"
+import { setQuery } from "../../state/searchSlice"
 import "./results.css"
 
 const Results: React.FC = () => {
   const navigate = useNavigate()
-  const { query } = useParams<{ query: string }>()
+  const dispatch = useDispatch()
+  const query = useSelector((state: any) => state.search.query)
   const [searchQuery, setSearchQuery] = useState<string>("")
   const [results, setResults] = React.useState<any>(null)
 
   const handleSearch = useCallback(
     (searchQuery: string) => {
+      dispatch(setQuery(searchQuery))
       navigate(`/results/${searchQuery}`)
       getRecipes(searchQuery)
         .then((data) => {
@@ -40,6 +44,7 @@ const Results: React.FC = () => {
 
   useEffect(() => {
     if (query) {
+      setSearchQuery(query)
       handleSearch(query)
     }
   }, [query, handleSearch])
