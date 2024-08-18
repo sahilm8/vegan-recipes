@@ -37,8 +37,7 @@ export const getRecipeData = async (uri: string): Promise<any> => {
   try {
     const response = await axios.get(url, { params })
     return response.data
-  }
-  catch (error) {
+  } catch (error) {
     if (error instanceof Error) {
       return { error: error.message }
     }
