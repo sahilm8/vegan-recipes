@@ -1,38 +1,36 @@
 import React, { useCallback, useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { setQuery, setResults } from "../../state/searchSlice"
-import { useFetchData } from "../../hooks/useFetchData"
+import { getPage, getRecipes } from "../../data/api"
 import "./results.css"
 
 const Results: React.FC = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const [handleGetReipes, handleGetPage] = useFetchData()
-  const { query } = useSelector((state: any) => state.search)
+  const { query } = useParams<{ query: string }>()
   const { urls } = useSelector((state: any) => state.search)
-  const [searchQuery, setSearchQuery] = useState<string>("")
+  const [searchQuery, setSearchQuery] = useState<string>(query || "")
   const [data, setData] = React.useState<any>(null)
 
-  console.log("urls", urls)
-
   const handleSearch = useCallback(
-    (searchQuery: string) => {
-      dispatch(setQuery(searchQuery))
+    async (searchQuery: string) => {
       navigate(`/results/${searchQuery}`)
-      handleGetReipes(searchQuery)
+
+      dispatch(setQuery(searchQuery))
+      await getRecipes(searchQuery)
         .then((data) => {
           setData(data)
           dispatch(setResults(data))
         })
         .catch((error) => alert(error))
     },
-    [navigate, dispatch],
+    [dispatch, navigate],
   )
 
   const handlePagination = useCallback(
-    (url: string) => {
-      handleGetPage(url)
+    async (url: string) => {
+      await getPage(url)
         .then((data) => {
           setData(data)
           dispatch(setResults(data))
@@ -53,10 +51,9 @@ const Results: React.FC = () => {
 
   useEffect(() => {
     if (query) {
-      setSearchQuery(query)
       handleSearch(query)
     }
-  }, [query, handleSearch])
+  }, [query, handleSearch, navigate])
 
   return (
     <div className="results-root">

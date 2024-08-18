@@ -10,8 +10,8 @@ const Home: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("")
 
   const handleSearch = useCallback(() => {
-    dispatch(setQuery(searchQuery))
     navigate(`/results/${searchQuery}`)
+    dispatch(setQuery(searchQuery))
   }, [navigate, searchQuery, dispatch])
 
   const handleKeyDown = useCallback(

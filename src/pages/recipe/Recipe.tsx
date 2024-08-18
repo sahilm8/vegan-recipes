@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { useFetchData } from "../../hooks/useFetchData"
+import { getRecipeData } from "../../data/api"
 import "./recipe.css"
 
 const Recipe: React.FC = () => {
   const navigate = useNavigate()
-  const [handleGetRecipeData] = useFetchData()
   const { uri } = useParams<{ uri: string }>()
   const [recipe, setRecipe] = useState<any>(null)
 
   useEffect(() => {
-    handleGetRecipeData(uri!)
+    getRecipeData(uri!)
       .then((data) => {
         setRecipe(data.recipe)
       })
