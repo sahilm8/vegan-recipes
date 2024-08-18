@@ -12,7 +12,7 @@ const Results: React.FC = () => {
   const handleSearch = useCallback(
     (searchQuery: string) => {
       navigate(`/results/${searchQuery}`)
-      getRecipes(searchQuery, 0, 19)
+      getRecipes(searchQuery)
         .then((data) => {
           setResults(data)
         })

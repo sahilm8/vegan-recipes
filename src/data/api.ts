@@ -1,10 +1,8 @@
 import axios from "axios"
 
-export const getRecipes = async (
-  query: string,
-  from: number,
-  to: number,
-): Promise<any> => {
+// Todo: Hide app_id and app_key in dev tools
+
+export const getRecipes = async (query: string): Promise<any> => {
   const url = `${process.env.REACT_APP_EDAMAM_BASE_URL}/api/recipes/v2`
   const params = {
     q: query,
@@ -12,8 +10,6 @@ export const getRecipes = async (
     app_key: process.env.REACT_APP_EDAMAM_APP_KEY,
     type: "public",
     health: "vegan",
-    from: from,
-    to: to,
   }
 
   try {
