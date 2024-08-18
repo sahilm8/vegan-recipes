@@ -18,7 +18,7 @@ const Results: React.FC = () => {
   const handleSearch = (searchQuery: string) => {
     getRecipes(searchQuery, 0, 50)
       .then((data) => {
-        setResults(data.hits)
+        setResults(data)
       })
       .catch((error) => alert(error))
   }
@@ -50,8 +50,8 @@ const Results: React.FC = () => {
           Search
         </button>
       </div>
-      {Array.isArray(results) && results.length !== 0 ? (
-        results.map((result) => (
+      {results && Array.isArray(results.hits) && results.hits.length !== 0 ? (
+        results.hits.map((result: any) => (
           <div
             className="results-row"
             key={result.recipe.url}
@@ -72,9 +72,16 @@ const Results: React.FC = () => {
           No recipes found, please try again later.
         </p>
       )}
+      <div className="results-pagination">
+        <button className="results-pagination-button" onClick={() => {}}>
+          Previous
+        </button>
+        <button className="results-pagination-button" onClick={() => {}}>
+          Next
+        </button>
+      </div>
       <div className="results-footer">
         <p className="results-footer-text">Powered by Edamam</p>
-        <p className="results-footer-text">Created by Sahil Memon</p>
       </div>
     </div>
   )
