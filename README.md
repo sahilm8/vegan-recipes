@@ -1,11 +1,14 @@
 # Vegan Recipes
 
-A web app to search and view vegan recipes.
+A web app to search, save and view vegan recipes.
 
-## Demo
+## Stack
 
-![Demo](public/demo.gif)
+- React
+- React Router
+- Axios
+- Redux
 
 ## API
 
-Used the API from [Edamam](https://www.edamam.com).
+API from [Edamam](https://www.edamam.com).
