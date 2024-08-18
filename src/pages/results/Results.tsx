@@ -16,7 +16,8 @@ const Results: React.FC = () => {
   }, [query])
 
   const handleSearch = (searchQuery: string) => {
-    getRecipes(searchQuery, 0, 50)
+    navigate(`/results/${searchQuery}`)
+    getRecipes(searchQuery, 0, 19)
       .then((data) => {
         setResults(data)
       })
@@ -84,18 +85,17 @@ const Results: React.FC = () => {
         <button className="results-pagination-button" onClick={() => {}}>
           Previous
         </button>
-        {results && results._links.next.href ? (
+        {results && results._links.next ? (
           <button
             className="results-pagination-button"
-            onClick={() =>
-              results._links.next.href
-                ? (handlePagination(results._links.next.href),
-                  window.scrollTo({
-                    top: 0,
-                    behavior: "smooth",
-                  }))
-                : null
-            }
+            id="results-pagination-button-next"
+            onClick={() => {
+              handlePagination(results._links.next.href)
+              window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+              })
+            }}
           >
             Next
           </button>
