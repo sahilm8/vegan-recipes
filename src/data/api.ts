@@ -14,7 +14,7 @@ export const getRecipes = async (query: string): Promise<any> => {
 
   try {
     const response = await axios.get(url, { params })
-    return response.data
+    return response
   } catch (error) {
     if (error instanceof Error) {
       return { error: error.message }
@@ -26,7 +26,7 @@ export const getRecipes = async (query: string): Promise<any> => {
 export const getPage = async (url: string): Promise<any> => {
   try {
     const response = await axios.get(url)
-    return response.data
+    return response
   } catch (error) {
     if (error instanceof Error) {
       return { error: error.message }
