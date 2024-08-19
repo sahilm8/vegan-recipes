@@ -1,58 +1,53 @@
-import React, { useCallback, useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
-import { setQuery, setResults } from "../../state/searchSlice"
+import React, { useCallback, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { useSelector } from "react-redux"
 import { getPage, getRecipes } from "../../data/api"
+import { useSearch } from "../../hooks/useSearch"
 import "./results.css"
 
+// req being sent twice
 const Results: React.FC = () => {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const { query } = useParams<{ query: string }>()
-  const { urls } = useSelector((state: any) => state.search)
-  const [searchQuery, setSearchQuery] = useState<string>(query || "")
-  const [data, setData] = React.useState<any>(null)
+  const { query, results, urls } = useSelector((state: any) => state.search)
+  const [updateQuery, updateUrls, updateResults] = useSearch()
+  const [searchQuery, setSearchQuery] = useState<string>("")
+  //const [loading, setLoading] = useState<boolean>(false)
 
-  const handleSearch = useCallback(
-    async (searchQuery: string) => {
-      navigate(`/results/${searchQuery}`)
-      dispatch(setQuery(searchQuery))
-      await getRecipes(searchQuery)
-        .then((data) => {
-          setData(data)
-          dispatch(setResults(data))
-        })
-        .catch((error) => alert(error))
-    },
-    [dispatch, navigate],
-  )
+  console.log("query", query)
+  console.log("results", results)
+  console.log("urls", urls)
+
+  const handleSearch = useCallback(async () => {
+    await getRecipes(searchQuery)
+      .then((response) => {
+        updateQuery(searchQuery)
+        updateUrls(response.request.responseURL)
+        updateResults(response.data)
+        navigate(`/results/${searchQuery}`)
+      })
+      .catch((error) => alert(error))
+  }, [navigate, searchQuery, updateQuery, updateResults, updateUrls])
 
   const handlePagination = useCallback(
     async (url: string) => {
       await getPage(url)
-        .then((data) => {
-          setData(data)
-          dispatch(setResults(data))
+        .then((response) => {
+          updateUrls(response.request.responseURL)
+          updateResults(response.data)
         })
         .catch((error) => alert(error))
     },
-    [dispatch],
+    [updateResults, updateUrls],
   )
 
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
       if (searchQuery && event.key === "Enter") {
-        handleSearch(searchQuery)
+        handleSearch()
       }
     },
     [handleSearch, searchQuery],
   )
-
-  useEffect(() => {
-    if (query) {
-      handleSearch(query)
-    }
-  }, [query, handleSearch, navigate])
 
   return (
     <div className="results-root">
@@ -70,13 +65,15 @@ const Results: React.FC = () => {
         />
         <button
           className="results-search-button"
-          onClick={() => handleSearch(searchQuery)}
+          onClick={() => handleSearch()}
         >
           Search
         </button>
       </div>
-      {data && Array.isArray(data.hits) && data.hits.length !== 0 ? (
-        data.hits.map((result: any) => (
+      {results.data &&
+      Array.isArray(results.data.hits) &&
+      results.data.hits.length !== 0 ? (
+        results.data.hits.map((result: any) => (
           <div
             className="results-row"
             key={result.recipe.url}
@@ -98,7 +95,7 @@ const Results: React.FC = () => {
         </p>
       )}
       <div className="results-pagination">
-        {urls.length !== 0 && (
+        {urls.length > 1 && (
           <button
             className="results-pagination-button"
             onClick={() => {
@@ -112,12 +109,11 @@ const Results: React.FC = () => {
             Previous
           </button>
         )}
-        {data && data._links.next && (
+        {results.data && results.data._links.next && (
           <button
             className="results-pagination-button"
-            id="results-pagination-button-next"
             onClick={() => {
-              handlePagination(data._links.next.href)
+              handlePagination(results.data._links.next.href)
               window.scrollTo({
                 top: 0,
                 behavior: "smooth",
