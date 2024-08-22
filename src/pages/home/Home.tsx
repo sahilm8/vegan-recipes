@@ -1,24 +1,14 @@
 import React, { useCallback, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { useSearch } from "../../hooks/useSearch"
 import "./home.css"
-import { getRecipes } from "../../data/api"
 
 const Home: React.FC = () => {
   const navigate = useNavigate()
-  const [updateQuery, updateUrls, updateResults] = useSearch()
   const [searchQuery, setSearchQuery] = useState<string>("")
 
   const handleSearch = useCallback(async () => {
-    await getRecipes(searchQuery)
-      .then((response) => {
-        updateQuery(searchQuery)
-        updateUrls(response.request.responseURL)
-        updateResults(response.data)
-        navigate(`/results/${searchQuery}`)
-      })
-      .catch((error) => alert(error))
-  }, [navigate, searchQuery, updateQuery, updateResults, updateUrls])
+    navigate(`/results/${searchQuery}`)
+  }, [navigate, searchQuery])
 
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
