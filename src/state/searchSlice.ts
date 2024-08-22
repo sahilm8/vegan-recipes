@@ -5,6 +5,7 @@ export const searchSlice = createSlice({
   initialState: {
     query: "",
     queryResults: [],
+    nextUrl: "",
   },
   reducers: {
     setQuery: (state, action) => {
@@ -13,12 +14,17 @@ export const searchSlice = createSlice({
     setQueryResults: (state, action) => {
       state.queryResults = action.payload
     },
+    setNextUrl: (state, action) => {
+      state.nextUrl = action.payload
+    },
     resetState: (state) => {
       state.query = ""
       state.queryResults = []
+      state.nextUrl = ""
     },
   },
 })
 
-export const { setQuery, setQueryResults, resetState } = searchSlice.actions
+export const { setQuery, setQueryResults, setNextUrl, resetState } =
+  searchSlice.actions
 export default searchSlice.reducer
