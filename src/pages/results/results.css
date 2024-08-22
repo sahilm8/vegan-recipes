@@ -130,16 +130,9 @@
   margin: 0 0 2rem 0;
 }
 
-.results-pagination {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-top: 2rem;
-  width: 18rem;
-  justify-content: center;
-}
-
 .results-pagination-button {
+  margin-top: 2rem;
+  align-self: center;
   height: 2.5rem;
   min-width: 8rem;
   border-radius: 2rem;

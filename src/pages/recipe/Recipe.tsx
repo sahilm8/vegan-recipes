@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { getRecipeData } from "../../data/api"
+import { getData } from "../../data/api"
 import "./recipe.css"
 
 const Recipe: React.FC = () => {
@@ -9,7 +9,7 @@ const Recipe: React.FC = () => {
   const [recipe, setRecipe] = useState<any>(null)
 
   useEffect(() => {
-    getRecipeData(uri!)
+    getData(uri!)
       .then((data) => {
         setRecipe(data.recipe)
       })
