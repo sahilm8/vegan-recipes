@@ -9,11 +9,11 @@ A web app to search, save and view vegan recipes.
 ## Setup
 
 ```
-npm/yarn install
+yarn install
 ```
 
 ```
-npm/yarn start
+yarn start
 ```
 
 ## Stack
